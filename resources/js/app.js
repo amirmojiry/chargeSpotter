@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createInertiaApp } from '@inertiajs/vue3' 
 
 // Global translation helper function
 const translate = (key) => {
@@ -21,13 +21,22 @@ const translate = (key) => {
 window.__ = translate
 
 createInertiaApp({
-  resolve: name => import(`./Pages/${name}.vue`),
+  resolve: name => {
+    const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
+    return pages[`./Pages/${name}.vue`]
+  },
   setup({ el, App, props, plugin }) {
     // Make $page available globally for translations
     window.$page = props.initialPage
     
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)
+    
+    // Make route helper available globally
+    if (window.Ziggy) {
+      app.config.globalProperties.route = window.Ziggy.route
+      window.route = window.Ziggy.route
+    }
     
     // Make __ function available in Vue templates
     app.config.globalProperties.__ = translate

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChargeSpotter</title>
+  @routes
   @vite('resources/js/app.js')
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
   <style>
@@ -14,13 +15,13 @@
     }
     
     .map {
-      height: calc(100vh - 140px);
+      height: 400px;
     }
     
     @media (max-width: 768px) {
       .map {
-        height: 50vh;
-        min-height: 300px;
+        height: 40vh;
+        min-height: 250px;
       }
     }
   </style>

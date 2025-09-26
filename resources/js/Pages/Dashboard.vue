@@ -1,9 +1,19 @@
 <template>
   <div class="dashboard">
-    <header class="header">
-      <h1>{{ __('chargespotter.title') }}</h1>
-      <p>{{ __('chargespotter.subtitle') }}</p>
-    </header>
+            <header class="header">
+              <div class="header-content">
+                <div class="header-text">
+                  <h1>{{ __('chargespotter.title') }}</h1>
+                  <p>{{ __('chargespotter.subtitle') }}</p>
+                </div>
+                <nav class="header-nav">
+                  <a href="/admin/poi-categories" class="nav-link">{{ __('admin.poi_categories') }}</a>
+                  <a href="/admin/poi-locations" class="nav-link">{{ __('admin.poi_locations') }}</a>
+                  <a href="/admin/parking-locations" class="nav-link">{{ __('admin.parking_locations') }}</a>
+                  <a href="/admin/population-cells" class="nav-link">{{ __('admin.population_cells') }}</a>
+                </nav>
+              </div>
+            </header>
 
     <div class="controls">
       <div class="weight-controls">
@@ -216,7 +226,21 @@ onMounted(() => {
   background: #2c3e50;
   color: white;
   padding: 1rem;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-text {
   text-align: center;
+  flex: 1;
 }
 
 .header h1 {
@@ -229,13 +253,47 @@ onMounted(() => {
   opacity: 0.8;
 }
 
+.header-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.2s;
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.2);
+}
+
 @media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
   .header h1 {
     font-size: 1.5rem;
   }
-  
+
   .header p {
     font-size: 0.9rem;
+  }
+  
+  .header-nav {
+    justify-content: center;
+  }
+  
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
   }
 }
 
@@ -337,14 +395,16 @@ onMounted(() => {
 }
 
 .map-container {
-  flex: 2;
+  flex: 1;
   min-height: 0;
+  max-height: 400px;
 }
 
 @media (max-width: 768px) {
   .map-container {
-    height: 50vh;
-    min-height: 300px;
+    height: 40vh;
+    min-height: 250px;
+    max-height: none;
   }
 }
 
@@ -354,6 +414,9 @@ onMounted(() => {
   border-left: 1px solid #dee2e6;
   padding: 1rem;
   overflow-y: auto;
+  height: 40vh;
+  min-height: 250px;
+  max-height: none;
 }
 
 @media (max-width: 768px) {

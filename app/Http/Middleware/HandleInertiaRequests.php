@@ -39,6 +39,11 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'translations' => [
                 'chargespotter' => __('chargespotter'),
+                'admin' => __('admin'),
+            ],
+            'ziggy' => fn () => [
+                ...(new \Tighten\Ziggy\Ziggy)->toArray(),
+                'location' => request()->url(),
             ],
         ];
     }

@@ -1,0 +1,349 @@
+<template>
+  <div class="dashboard">
+    <header class="header">
+      <h1>ChargeSpotter</h1>
+      <p>Find the best locations for EV charging</p>
+    </header>
+
+    <div class="controls">
+      <div class="weight-controls">
+        <h3>Weight Controls</h3>
+        <div class="sliders">
+          <div class="slider-group">
+            <label>Population: {{ weights.population.toFixed(2) }}</label>
+            <input 
+              type="range" 
+              min="0" 
+              max="1" 
+              step="0.01" 
+              v-model="weights.population"
+              @input="updateMap"
+            />
+          </div>
+          <div class="slider-group">
+            <label>POI: {{ weights.poi.toFixed(2) }}</label>
+            <input 
+              type="range" 
+              min="0" 
+              max="1" 
+              step="0.01" 
+              v-model="weights.poi"
+              @input="updateMap"
+            />
+          </div>
+          <div class="slider-group">
+            <label>Parking: {{ weights.parking.toFixed(2) }}</label>
+            <input 
+              type="range" 
+              min="0" 
+              max="1" 
+              step="0.01" 
+              v-model="weights.parking"
+              @input="updateMap"
+            />
+          </div>
+          <div class="slider-group">
+            <label>Traffic: {{ weights.traffic.toFixed(2) }}</label>
+            <input 
+              type="range" 
+              min="0" 
+              max="1" 
+              step="0.01" 
+              v-model="weights.traffic"
+              @input="updateMap"
+            />
+          </div>
+        </div>
+        <button @click="normalizeWeights" class="normalize-btn">Normalize Weights</button>
+      </div>
+
+      <div class="export-controls">
+        <h3>Export</h3>
+        <button @click="exportCsv" class="export-btn">Export CSV</button>
+        <button @click="exportGeoJson" class="export-btn">Export GeoJSON</button>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="map-container">
+        <MapHeatmap 
+          :bbox="bbox" 
+          :weights="weights"
+          @map-ready="onMapReady"
+        />
+      </div>
+
+      <div class="candidates-panel">
+        <h3>Top Candidates</h3>
+        <div v-if="loading" class="loading">Loading candidates...</div>
+        <div v-else class="candidates-list">
+          <div 
+            v-for="(candidate, index) in candidates" 
+            :key="index"
+            class="candidate-item"
+          >
+            <div class="candidate-rank">#{{ index + 1 }}</div>
+            <div class="candidate-info">
+              <div class="candidate-score">Score: {{ candidate.total_score.toFixed(3) }}</div>
+              <div class="candidate-location">
+                {{ candidate.lat.toFixed(4) }}, {{ candidate.lng.toFixed(4) }}
+              </div>
+              <div class="candidate-reason">{{ candidate.reason }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, reactive, onMounted, watch } from 'vue'
+import { router } from '@inertiajs/vue3'
+import axios from 'axios'
+import MapHeatmap from '../Components/MapHeatmap.vue'
+
+const props = defineProps({
+  defaultWeights: Object,
+  defaultBbox: Array
+})
+
+const weights = reactive({ ...props.defaultWeights })
+const bbox = ref([...props.defaultBbox])
+const candidates = ref([])
+const loading = ref(false)
+const mapRef = ref(null)
+
+const updateMap = () => {
+  // Map will automatically update when weights change
+  loadCandidates()
+}
+
+const normalizeWeights = () => {
+  const total = weights.population + weights.poi + weights.parking + weights.traffic
+  if (total > 0) {
+    weights.population /= total
+    weights.poi /= total
+    weights.parking /= total
+    weights.traffic /= total
+  }
+  updateMap()
+}
+
+const loadCandidates = async () => {
+  loading.value = true
+  try {
+    const params = new URLSearchParams({
+      limit: '10',
+      w_pop: weights.population,
+      w_poi: weights.poi,
+      w_parking: weights.parking,
+      w_traffic: weights.traffic
+    })
+    
+    const response = await axios.get(`/api/candidates?${params}`)
+    candidates.value = response.data.candidates
+  } catch (error) {
+    console.error('Error loading candidates:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+const exportCsv = () => {
+  const params = new URLSearchParams({
+    w_pop: weights.population,
+    w_poi: weights.poi,
+    w_parking: weights.parking,
+    w_traffic: weights.traffic
+  })
+  
+  window.open(`/api/export/csv?${params}`, '_blank')
+}
+
+const exportGeoJson = () => {
+  const params = new URLSearchParams({
+    w_pop: weights.population,
+    w_poi: weights.poi,
+    w_parking: weights.parking,
+    w_traffic: weights.traffic
+  })
+  
+  window.open(`/api/export/geojson?${params}`, '_blank')
+}
+
+const onMapReady = (map) => {
+  mapRef.value = map
+  loadCandidates()
+}
+
+onMounted(() => {
+  loadCandidates()
+})
+</script>
+
+<style scoped>
+.dashboard {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.header p {
+  margin: 0.5rem 0 0 0;
+  opacity: 0.8;
+}
+
+.controls {
+  background: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  gap: 2rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.weight-controls, .export-controls {
+  flex: 1;
+}
+
+.weight-controls h3, .export-controls h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.sliders {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.slider-group {
+  flex: 1;
+}
+
+.slider-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.slider-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+}
+
+.normalize-btn, .export-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.normalize-btn:hover, .export-btn:hover {
+  background: #0056b3;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.map-container {
+  flex: 2;
+  min-height: 0;
+}
+
+.candidates-panel {
+  flex: 1;
+  background: white;
+  border-left: 1px solid #dee2e6;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.candidates-panel h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.loading {
+  text-align: center;
+  color: #6c757d;
+  padding: 2rem;
+}
+
+.candidates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.candidate-item {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #007bff;
+}
+
+.candidate-rank {
+  font-weight: bold;
+  color: #007bff;
+  min-width: 2rem;
+}
+
+.candidate-info {
+  flex: 1;
+}
+
+.candidate-score {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.candidate-location {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+}
+
+.candidate-reason {
+  font-size: 0.8rem;
+  color: #495057;
+  font-style: italic;
+}
+</style>

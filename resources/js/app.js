@@ -2,7 +2,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 
 // Global translation helper function
-window.__ = (key) => {
+const translate = (key) => {
   const keys = key.split('.')
   let value = window.$page?.props?.translations
   
@@ -17,6 +17,9 @@ window.__ = (key) => {
   return value || key
 }
 
+// Make it available globally
+window.__ = translate
+
 createInertiaApp({
   resolve: name => import(`./Pages/${name}.vue`),
   setup({ el, App, props, plugin }) {
@@ -25,10 +28,11 @@ createInertiaApp({
     
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)
-      .mount(el)
     
-    // Update global $page when props change
-    app.config.globalProperties.$page = props.initialPage
+    // Make __ function available in Vue templates
+    app.config.globalProperties.__ = translate
+    
+    app.mount(el)
     
     return app
   },

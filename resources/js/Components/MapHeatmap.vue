@@ -16,13 +16,18 @@ const props = defineProps({
   weights: {
     type: Object,
     required: true
+  },
+  candidates: {
+    type: Array,
+    default: () => []
   }
 })
 
-const emit = defineEmits(['map-ready'])
+const emit = defineEmits(['map-ready', 'candidate-click'])
 
 let map = null
 let heatLayer = null
+let candidateMarkers = []
 
 const initMap = () => {
   // Initialize map
@@ -115,9 +120,63 @@ const debounce = (func, wait) => {
   }
 }
 
+// Add candidate markers to map
+const addCandidateMarkers = () => {
+  // Remove existing markers
+  candidateMarkers.forEach(marker => map.removeLayer(marker))
+  candidateMarkers = []
+
+  // Add new markers
+  props.candidates.forEach((candidate, index) => {
+    const marker = L.circleMarker([candidate.lat, candidate.lng], {
+      radius: 8,
+      fillColor: '#ff7800',
+      color: '#fff',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }).addTo(map)
+
+    // Add popup with candidate info
+    marker.bindPopup(`
+      <div style="text-align: center;">
+        <strong>#${index + 1} ${__('chargespotter.top_candidates')}</strong><br>
+        ${__('chargespotter.score')}: ${candidate.total_score.toFixed(3)}<br>
+        ${candidate.reason}
+      </div>
+    `)
+
+    // Add click event
+    marker.on('click', () => {
+      emit('candidate-click', candidate, index)
+    })
+
+    candidateMarkers.push(marker)
+  })
+}
+
+// Focus on a specific candidate
+const focusOnCandidate = (candidate) => {
+  if (map) {
+    map.setView([candidate.lat, candidate.lng], 16)
+  }
+}
+
+// Expose focusOnCandidate method
+defineExpose({
+  focusOnCandidate
+})
+
 // Watch for weight changes
 watch(() => props.weights, () => {
   loadHeatmapData()
+}, { deep: true })
+
+// Watch for candidates changes
+watch(() => props.candidates, () => {
+  if (map) {
+    addCandidateMarkers()
+  }
 }, { deep: true })
 
 onMounted(() => {

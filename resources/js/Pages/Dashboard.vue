@@ -67,9 +67,12 @@
     <div class="main-content">
       <div class="map-container">
         <MapHeatmap 
+          ref="mapRef"
           :bbox="bbox" 
           :weights="weights"
+          :candidates="candidates"
           @map-ready="onMapReady"
+          @candidate-click="onCandidateClick"
         />
       </div>
 
@@ -81,6 +84,7 @@
             v-for="(candidate, index) in candidates" 
             :key="index"
             class="candidate-item"
+            @click="focusOnCandidate(candidate, index)"
           >
             <div class="candidate-rank">#{{ index + 1 }}</div>
             <div class="candidate-info">
@@ -175,6 +179,17 @@ const exportGeoJson = () => {
 const onMapReady = (map) => {
   mapRef.value = map
   loadCandidates()
+}
+
+const onCandidateClick = (candidate, index) => {
+  // Optional: highlight the clicked candidate in the list
+  console.log('Candidate clicked:', candidate, index)
+}
+
+const focusOnCandidate = (candidate, index) => {
+  if (mapRef.value && mapRef.value.focusOnCandidate) {
+    mapRef.value.focusOnCandidate(candidate)
+  }
 }
 
 onMounted(() => {
@@ -318,6 +333,14 @@ onMounted(() => {
   background: #f8f9fa;
   border-radius: 4px;
   border-left: 4px solid #007bff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.candidate-item:hover {
+  background: #e9ecef;
+  transform: translateX(2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .candidate-rank {

@@ -16,7 +16,7 @@
               min="0" 
               max="1" 
               step="0.01" 
-              v-model="weights.population"
+              v-model.number="weights.population"
               @input="updateMap"
             />
           </div>
@@ -27,7 +27,7 @@
               min="0" 
               max="1" 
               step="0.01" 
-              v-model="weights.poi"
+              v-model.number="weights.poi"
               @input="updateMap"
             />
           </div>
@@ -38,7 +38,7 @@
               min="0" 
               max="1" 
               step="0.01" 
-              v-model="weights.parking"
+              v-model.number="weights.parking"
               @input="updateMap"
             />
           </div>
@@ -49,7 +49,7 @@
               min="0" 
               max="1" 
               step="0.01" 
-              v-model="weights.traffic"
+              v-model.number="weights.traffic"
               @input="updateMap"
             />
           </div>

@@ -139,7 +139,7 @@ total_score = w_pop * population_z
 * **Backend:** PHP 8.2+, Laravel 12, Composer
 * **Frontend:** Vue 3 + Inertia.js, Vite
 * **Map:** Leaflet + `leaflet.heat`
-* **DB:** PostgreSQL (recommended) or SQLite (for quick local demo)
+* **DB:** mysql (recommended) or SQLite (for quick local demo)
 * **Testing:** Pest
 
 ---
@@ -147,7 +147,7 @@ total_score = w_pop * population_z
 ## Quick start
 
 ```bash
-# prerequisites: PHP 8.2+, Composer, Node 18+, npm, PostgreSQL (or SQLite)
+# prerequisites: PHP 8.2+, Composer, Node 18+, npm, mysql
 
 # from your existing Laravel project root
 cp .env.example .env
@@ -158,7 +158,7 @@ npm install
 npm run dev  # or: npm run build
 ```
 
-Set DB credentials in `.env` (PostgreSQL recommended for concurrency and future PostGIS).
+Set DB credentials in `.env` (mysql)
 
 Run initial migration seed (we’ll add migrations shortly):
 
@@ -583,7 +583,7 @@ it('computes normalized scores', function () {
 * Use `php artisan config:cache`, `route:cache`.
 * For production, run `npm run build` and serve compiled assets.
 * If exposing publicly, add **rate limiting** to API and **CORS** rules.
-* Consider PostgreSQL; later you can migrate to **PostGIS** for true geometry queries.
+* Consider mysql; later you can migrate to **PostGIS** for true geometry queries.
 
 ---
 

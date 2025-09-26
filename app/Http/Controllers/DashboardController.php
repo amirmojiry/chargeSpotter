@@ -12,6 +12,6 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard', [
             'defaultWeights' => config('chargespotter.default_weights'),
             'defaultBbox' => [21.6, 63.09, 21.65, 63.13], // Vaasa example bbox
-        ]);
+            ]);
     }
 }

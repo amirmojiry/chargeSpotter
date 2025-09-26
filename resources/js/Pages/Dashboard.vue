@@ -1,16 +1,16 @@
 <template>
   <div class="dashboard">
     <header class="header">
-      <h1>ChargeSpotter</h1>
-      <p>Find the best locations for EV charging</p>
+      <h1>{{ __('chargespotter.title') }}</h1>
+      <p>{{ __('chargespotter.subtitle') }}</p>
     </header>
 
     <div class="controls">
       <div class="weight-controls">
-        <h3>Weight Controls</h3>
+        <h3>{{ __('chargespotter.weight_controls') }}</h3>
         <div class="sliders">
           <div class="slider-group">
-            <label>Population: {{ weights.population.toFixed(2) }}</label>
+            <label>{{ __('chargespotter.population') }}: {{ weights.population.toFixed(2) }}</label>
             <input 
               type="range" 
               min="0" 
@@ -21,7 +21,7 @@
             />
           </div>
           <div class="slider-group">
-            <label>POI: {{ weights.poi.toFixed(2) }}</label>
+            <label>{{ __('chargespotter.poi') }}: {{ weights.poi.toFixed(2) }}</label>
             <input 
               type="range" 
               min="0" 
@@ -32,7 +32,7 @@
             />
           </div>
           <div class="slider-group">
-            <label>Parking: {{ weights.parking.toFixed(2) }}</label>
+            <label>{{ __('chargespotter.parking') }}: {{ weights.parking.toFixed(2) }}</label>
             <input 
               type="range" 
               min="0" 
@@ -43,7 +43,7 @@
             />
           </div>
           <div class="slider-group">
-            <label>Traffic: {{ weights.traffic.toFixed(2) }}</label>
+            <label>{{ __('chargespotter.traffic') }}: {{ weights.traffic.toFixed(2) }}</label>
             <input 
               type="range" 
               min="0" 
@@ -54,13 +54,13 @@
             />
           </div>
         </div>
-        <button @click="normalizeWeights" class="normalize-btn">Normalize Weights</button>
+        <button @click="normalizeWeights" class="normalize-btn">{{ __('chargespotter.normalize_weights') }}</button>
       </div>
 
       <div class="export-controls">
-        <h3>Export</h3>
-        <button @click="exportCsv" class="export-btn">Export CSV</button>
-        <button @click="exportGeoJson" class="export-btn">Export GeoJSON</button>
+        <h3>{{ __('chargespotter.export') }}</h3>
+        <button @click="exportCsv" class="export-btn">{{ __('chargespotter.export_csv') }}</button>
+        <button @click="exportGeoJson" class="export-btn">{{ __('chargespotter.export_geojson') }}</button>
       </div>
     </div>
 
@@ -74,8 +74,8 @@
       </div>
 
       <div class="candidates-panel">
-        <h3>Top Candidates</h3>
-        <div v-if="loading" class="loading">Loading candidates...</div>
+        <h3>{{ __('chargespotter.top_candidates') }}</h3>
+        <div v-if="loading" class="loading">{{ __('chargespotter.loading') }}</div>
         <div v-else class="candidates-list">
           <div 
             v-for="(candidate, index) in candidates" 
@@ -84,7 +84,7 @@
           >
             <div class="candidate-rank">#{{ index + 1 }}</div>
             <div class="candidate-info">
-              <div class="candidate-score">Score: {{ candidate.total_score.toFixed(3) }}</div>
+              <div class="candidate-score">{{ __('chargespotter.score') }}: {{ candidate.total_score.toFixed(3) }}</div>
               <div class="candidate-location">
                 {{ candidate.lat.toFixed(4) }}, {{ candidate.lng.toFixed(4) }}
               </div>

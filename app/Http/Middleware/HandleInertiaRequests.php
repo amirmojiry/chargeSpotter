@@ -37,7 +37,9 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            //
+            'translations' => [
+                'chargespotter' => __('chargespotter'),
+            ],
         ];
     }
 }

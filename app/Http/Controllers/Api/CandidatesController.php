@@ -36,18 +36,18 @@ class CandidatesController extends Controller
         $reasons = [];
         
         if ($candidate['population_z'] > 0.7) {
-            $reasons[] = 'High population density';
+            $reasons[] = __('chargespotter.reasons.high_population_density');
         }
         if ($candidate['poi_z'] > 0.7) {
-            $reasons[] = 'Many points of interest';
+            $reasons[] = __('chargespotter.reasons.many_points_of_interest');
         }
         if ($candidate['parking_z'] > 0.7) {
-            $reasons[] = 'Good parking availability';
+            $reasons[] = __('chargespotter.reasons.good_parking_availability');
         }
         if ($candidate['traffic_z'] > 0.7) {
-            $reasons[] = 'High traffic flow';
+            $reasons[] = __('chargespotter.reasons.high_traffic_flow');
         }
 
-        return empty($reasons) ? 'Balanced location' : implode(', ', $reasons);
+        return empty($reasons) ? __('chargespotter.balanced_location') : implode(', ', $reasons);
     }
 }

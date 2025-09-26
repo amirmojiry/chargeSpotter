@@ -136,7 +136,7 @@ total_score = w_pop * population_z
 
 ## Tech stack
 
-* **Backend:** PHP 8.2+, Laravel 11, Composer
+* **Backend:** PHP 8.2+, Laravel 12, Composer
 * **Frontend:** Vue 3 + Inertia.js, Vite
 * **Map:** Leaflet + `leaflet.heat`
 * **DB:** PostgreSQL (recommended) or SQLite (for quick local demo)

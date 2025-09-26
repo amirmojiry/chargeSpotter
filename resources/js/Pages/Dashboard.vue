@@ -396,7 +396,7 @@ onMounted(() => {
 
 .map-container {
   flex: 1;
-  min-height: 0;
+  min-height: 250px;
   max-height: 400px;
 }
 

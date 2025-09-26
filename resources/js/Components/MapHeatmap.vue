@@ -128,17 +128,33 @@ const addCandidateMarkers = () => {
 
   // Add new markers
   props.candidates.forEach((candidate, index) => {
-    const marker = L.circleMarker([candidate.lat, candidate.lng], {
-      radius: 8,
-      fillColor: '#ff7800',
-      color: '#fff',
-      weight: 2,
-      opacity: 1,
-      fillOpacity: 0.8
+    // Add number label
+    const numberLabel = L.divIcon({
+      className: 'candidate-number-label',
+      html: `<div style="
+        background: #ff7800;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      ">${index + 1}</div>`,
+      iconSize: [24, 24],
+      iconAnchor: [12, 12]
+    })
+
+    const numberMarker = L.marker([candidate.lat, candidate.lng], {
+      icon: numberLabel
     }).addTo(map)
 
     // Add popup with candidate info
-    marker.bindPopup(`
+    numberMarker.bindPopup(`
       <div style="text-align: center;">
         <strong>#${index + 1} ${__('chargespotter.top_candidates')}</strong><br>
         ${__('chargespotter.score')}: ${candidate.total_score.toFixed(3)}<br>
@@ -147,11 +163,11 @@ const addCandidateMarkers = () => {
     `)
 
     // Add click event
-    marker.on('click', () => {
+    numberMarker.on('click', () => {
       emit('candidate-click', candidate, index)
     })
 
-    candidateMarkers.push(marker)
+    candidateMarkers.push(numberMarker)
   })
 }
 

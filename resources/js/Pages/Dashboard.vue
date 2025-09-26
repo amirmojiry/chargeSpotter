@@ -98,6 +98,13 @@
         </div>
       </div>
     </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 ChargeSpotter - Find the best locations for EV charging</p>
+        <p>Built with Laravel, Vue.js, and Leaflet</p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -199,7 +206,7 @@ onMounted(() => {
 
 <style scoped>
 .dashboard {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -222,12 +229,31 @@ onMounted(() => {
   opacity: 0.8;
 }
 
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .header p {
+    font-size: 0.9rem;
+  }
+}
+
 .controls {
   background: #f8f9fa;
   padding: 1rem;
   display: flex;
   gap: 2rem;
   border-bottom: 1px solid #dee2e6;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
 }
 
 .weight-controls, .export-controls {
@@ -243,6 +269,14 @@ onMounted(() => {
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .sliders {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 }
 
 .slider-group {
@@ -296,9 +330,22 @@ onMounted(() => {
   min-height: 0;
 }
 
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+}
+
 .map-container {
   flex: 2;
   min-height: 0;
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 50vh;
+    min-height: 300px;
+  }
 }
 
 .candidates-panel {
@@ -307,6 +354,14 @@ onMounted(() => {
   border-left: 1px solid #dee2e6;
   padding: 1rem;
   overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .candidates-panel {
+    border-left: none;
+    border-top: 1px solid #dee2e6;
+    max-height: 40vh;
+  }
 }
 
 .candidates-panel h3 {
@@ -368,5 +423,30 @@ onMounted(() => {
   font-size: 0.8rem;
   color: #495057;
   font-style: italic;
+}
+
+/* Footer styles */
+.footer {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-content p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 0.75rem;
+  }
+  
+  .footer-content p {
+    font-size: 0.8rem;
+  }
 }
 </style>

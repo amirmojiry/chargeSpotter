@@ -67,4 +67,5 @@ return [
     'population_cell_updated' => 'Population cell updated successfully.',
     'population_cell_deleted' => 'Population cell deleted successfully.',
     'dashboard' => 'Dashboard',
+    'category' => 'Category',
 ];

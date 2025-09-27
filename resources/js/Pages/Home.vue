@@ -14,10 +14,6 @@
             <i class="icon-dashboard"></i>
             Go to Dashboard
           </a>
-          <a href="/admin/regions" class="btn btn-secondary btn-large">
-            <i class="icon-regions"></i>
-            Manage Regions
-          </a>
         </div>
       </div>
     </header>

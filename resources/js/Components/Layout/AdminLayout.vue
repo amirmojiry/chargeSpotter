@@ -3,7 +3,7 @@
     <header class="header">
       <div class="header-content">
         <div class="header-text">
-          <h1>{{ __('chargespotter.title') }}</h1>
+          <h1><a href="/" class="title-link">{{ __('chargespotter.title') }}</a></h1>
           <p>{{ __('chargespotter.subtitle') }}</p>
         </div>
         <nav class="header-nav">
@@ -80,6 +80,16 @@ const $page = usePage()
 .header h1 {
   margin: 0;
   font-size: 2rem;
+}
+
+.title-link {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.title-link:hover {
+  opacity: 0.8;
 }
 
 .header p {

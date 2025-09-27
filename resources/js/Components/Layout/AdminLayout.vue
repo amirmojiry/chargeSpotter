@@ -7,7 +7,9 @@
           <p>{{ __('chargespotter.subtitle') }}</p>
         </div>
         <nav class="header-nav">
-          <a href="/" class="nav-link">{{ __('admin.dashboard') }}</a>
+          <a href="/admin/dashboard" class="nav-link" :class="{ active: $page.url.startsWith('/admin/dashboard') }">
+            {{ __('admin.dashboard') }}
+          </a>
           <a href="/admin/regions" class="nav-link" :class="{ active: $page.url.startsWith('/admin/regions') }">
             {{ __('admin.regions') }}
           </a>

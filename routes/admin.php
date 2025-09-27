@@ -5,9 +5,13 @@ use App\Http\Controllers\Admin\PoiLocationController;
 use App\Http\Controllers\Admin\ParkingLocationController;
 use App\Http\Controllers\Admin\PopulationCellController;
 use App\Http\Controllers\Admin\RegionController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    
     // Regions
     Route::resource('regions', RegionController::class);
     Route::delete('regions/bulk', [RegionController::class, 'bulkDestroy'])->name('regions.bulk-destroy');

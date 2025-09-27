@@ -35,8 +35,8 @@
 
     <footer class="footer">
       <div class="footer-content">
-        <p>&copy; 2024 ChargeSpotter - Find the best locations for EV charging</p>
-        <p>Built with Laravel, Vue.js, and Leaflet</p>
+        <p>&copy; 2024 ChargeSpotter - Find the best locations for energy infrastructure</p>
+        <p>Hanieh & Amir</p>
       </div>
     </footer>
   </div>

@@ -17,7 +17,7 @@ return [
         'many_points_of_interest' => 'Many points of interest',
     ],
     'score' => 'Score',
-    'subtitle' => 'Find the best locations for EV charging',
+    'subtitle' => 'Find the best locations for energy infrastructure',
     'title' => 'ChargeSpotter',
     'top_candidates' => 'Top Candidates',
     'traffic' => 'Traffic',

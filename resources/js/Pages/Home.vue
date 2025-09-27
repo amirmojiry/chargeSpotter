@@ -5,9 +5,10 @@
         <h1>{{ __('chargespotter.title') }}</h1>
         <p class="hero-subtitle">{{ __('chargespotter.subtitle') }}</p>
         <p class="hero-description">
-          Find the best locations for EV charging stations using data-driven analysis. 
+          Find the best locations for all energy infrastructure using data-driven analysis. 
           Our platform combines population density, points of interest, parking availability, 
-          and traffic patterns to identify optimal charging station locations.
+          and traffic patterns to identify optimal locations for EV chargers, solar panels, 
+          wind turbines, and other energy installations.
         </p>
         <div class="hero-actions">
           <a href="/admin/dashboard" class="btn btn-primary btn-large">
@@ -28,28 +29,21 @@
                 <i class="icon-map"></i>
               </div>
               <h3>Interactive Maps</h3>
-              <p>Visualize charging station recommendations with interactive heatmaps and detailed location analysis.</p>
+              <p>Visualize energy infrastructure recommendations with interactive heatmaps and detailed location analysis.</p>
             </div>
             <div class="feature-card">
               <div class="feature-icon">
                 <i class="icon-data"></i>
               </div>
               <h3>Data-Driven Analysis</h3>
-              <p>Leverage multiple data sources including population density, POI locations, and parking availability.</p>
+              <p>Leverage multiple data sources including population density, POI locations, parking availability, and live data such as weather, traffic, and pollution.</p>
             </div>
             <div class="feature-card">
               <div class="feature-icon">
                 <i class="icon-export"></i>
               </div>
-              <h3>Export & Integration</h3>
-              <p>Export results as CSV or GeoJSON for further analysis and integration with other systems.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <i class="icon-customize"></i>
-              </div>
-              <h3>Customizable Weights</h3>
-              <p>Adjust scoring weights in real-time to prioritize different factors based on your specific needs.</p>
+              <h3>AI-Powered Import</h3>
+              <p>Import different energy points and infrastructure data with the help of AI agents that can process and categorize various data sources automatically.</p>
             </div>
           </div>
         </div>
@@ -70,21 +64,21 @@
               <div class="step-number">2</div>
               <div class="step-content">
                 <h3>Import Data</h3>
-                <p>Add population data, points of interest, parking locations, and traffic information.</p>
+                <p>Add population data, points of interest, parking locations, traffic information, and use AI agents to import energy infrastructure data.</p>
               </div>
             </div>
             <div class="step">
               <div class="step-number">3</div>
               <div class="step-content">
                 <h3>Analyze & Score</h3>
-                <p>Our algorithm scores each grid cell based on weighted factors to identify optimal locations.</p>
+                <p>Our algorithm scores each grid cell based on weighted factors including live data to identify optimal locations for energy infrastructure.</p>
               </div>
             </div>
             <div class="step">
               <div class="step-number">4</div>
               <div class="step-content">
                 <h3>Visualize Results</h3>
-                <p>View heatmaps and ranked recommendations with detailed explanations for each suggestion.</p>
+                <p>View heatmaps and ranked recommendations with detailed explanations for each energy infrastructure suggestion.</p>
               </div>
             </div>
           </div>
@@ -97,7 +91,7 @@
         <div class="container">
           <div class="footer-info">
             <h3>{{ __('chargespotter.title') }}</h3>
-            <p>Find the best locations for EV charging — fast, data-driven, demo-ready.</p>
+            <p>Find the best locations for energy infrastructure - fast, data-driven, demo-ready.</p>
           </div>
           <div class="footer-links">
             <a href="/admin/dashboard">Dashboard</a>
@@ -107,7 +101,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 ChargeSpotter - Built with Laravel, Vue.js, and Leaflet</p>
+          <p>&copy; 2024 ChargeSpotter - Hanieh & Amir</p>
         </div>
       </div>
     </footer>

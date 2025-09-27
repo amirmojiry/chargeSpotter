@@ -1,6 +1,6 @@
 # ChargeSpotter (Laravel + Vue/Inertia)
 
-**Find the best locations for EV charging — fast, data-driven, demo-ready.**
+**Find the best locations for EV charging - fast, data-driven, demo-ready.**
 
 ChargeSpotter is a map-first tool that scores city blocks by **expected EV charging demand** using simple, public, or simulated data layers (Points-of-Interest, population density, parking supply, and a traffic proxy). It outputs a **heatmap** and a **Top-10 list** with reasons for each suggestion. The MVP is designed to be built quickly while staying cleanly extensible.
 
@@ -83,8 +83,8 @@ Frontend (Inertia + Vue 3)
 * `grid_cells`
 
   * `id` (PK)
-  * `lat` (double), `lng` (double) — center of cell
-  * `bbox_json` (json) — `[minLng, minLat, maxLng, maxLat]`
+  * `lat` (double), `lng` (double) - center of cell
+  * `bbox_json` (json) - `[minLng, minLat, maxLng, maxLat]`
   * **Layer values (raw or aggregated):**
 
     * `population_z` (float 0..1)
@@ -94,7 +94,7 @@ Frontend (Inertia + Vue 3)
   * **Computed (cached, optional):**
 
     * `total_score_cached` (float, nullable)
-    * `details_json` (json, nullable) — e.g., counters/reasons
+    * `details_json` (json, nullable) - e.g., counters/reasons
   * `created_at`, `updated_at`
 
 * `poi_locations`
@@ -107,7 +107,7 @@ Frontend (Inertia + Vue 3)
 
 * `population_cells`
 
-  * `id`, `lat`, `lng`, `density` (float) — coarse raster proxy
+  * `id`, `lat`, `lng`, `density` (float) - coarse raster proxy
 
 > You can start with **just `grid_cells`** if you pre-aggregate z-scores during import.
 
@@ -540,7 +540,7 @@ DB_CONNECTION=pgsql  # or sqlite for quick demo
 # PG creds ...
 ```
 
-`config/chargespotter.php` — tune defaults:
+`config/chargespotter.php` - tune defaults:
 
 * `default_weights`
 * `grid.cell_size_m`
@@ -561,10 +561,10 @@ php artisan pest:install
 
 ### Suggested tests
 
-* **Unit: GridBuilder** — given bbox & cell size, returns expected number of cells and correct bbox geometry.
-* **Unit: ScoringService** — normalization clamps to 0..1; totals match weights.
-* **Feature: /api/candidates** — returns sorted list; limit respected; reasons present.
-* **Feature: /api/grid-cells** — bbox filter works; returns heat payload shape.
+* **Unit: GridBuilder** - given bbox & cell size, returns expected number of cells and correct bbox geometry.
+* **Unit: ScoringService** - normalization clamps to 0..1; totals match weights.
+* **Feature: /api/candidates** - returns sorted list; limit respected; reasons present.
+* **Feature: /api/grid-cells** - bbox filter works; returns heat payload shape.
 
 **Example (outline)**
 

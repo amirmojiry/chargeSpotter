@@ -396,15 +396,16 @@ onMounted(() => {
 
 .map-container {
   flex: 1;
+  height: 40vh;
+  overflow-y: auto;
   min-height: 250px;
   max-height: 400px;
 }
 
 @media (max-width: 768px) {
   .map-container {
-    height: 40vh;
     min-height: 250px;
-    max-height: none;
+    max-height: 40vh;
   }
 }
 
@@ -416,13 +417,14 @@ onMounted(() => {
   overflow-y: auto;
   height: 40vh;
   min-height: 250px;
-  max-height: none;
+  max-height: 400px;
 }
 
 @media (max-width: 768px) {
   .candidates-panel {
     border-left: none;
     border-top: 1px solid #dee2e6;
+    min-height: 250px;
     max-height: 40vh;
   }
 }

@@ -13,6 +13,7 @@ class PoiLocation extends Model
         'category_id',
         'lat',
         'lng',
+        'grid_cell_id',
     ];
 
     protected $casts = [
@@ -23,5 +24,13 @@ class PoiLocation extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(PoiCategory::class, 'category_id');
+    }
+
+    /**
+     * Get the grid cell that owns this POI location.
+     */
+    public function gridCell(): BelongsTo
+    {
+        return $this->belongsTo(GridCell::class);
     }
 }

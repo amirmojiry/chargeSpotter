@@ -8,6 +8,9 @@
         </div>
         <nav class="header-nav">
           <a href="/" class="nav-link">{{ __('admin.dashboard') }}</a>
+          <a href="/admin/regions" class="nav-link" :class="{ active: $page.url.startsWith('/admin/regions') }">
+            {{ __('admin.regions') }}
+          </a>
           <a href="/admin/poi-categories" class="nav-link" :class="{ active: $page.url.startsWith('/admin/poi-categories') }">
             {{ __('admin.poi_categories') }}
           </a>

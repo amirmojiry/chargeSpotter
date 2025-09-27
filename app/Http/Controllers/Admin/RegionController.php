@@ -70,9 +70,7 @@ class RegionController extends Controller
      */
     public function show(Region $region)
     {
-        $region->load(['gridCells' => function ($query) {
-            $query->withCount(['parkingLocations', 'poiLocations', 'populationCells']);
-        }]);
+        $region->load('gridCells');
 
         return Inertia::render('Admin/Regions/Show', [
             'region' => $region,

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GridCell extends Model
 {
@@ -37,29 +36,5 @@ class GridCell extends Model
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);
-    }
-
-    /**
-     * Get the parking locations for this grid cell.
-     */
-    public function parkingLocations(): HasMany
-    {
-        return $this->hasMany(ParkingLocation::class);
-    }
-
-    /**
-     * Get the POI locations for this grid cell.
-     */
-    public function poiLocations(): HasMany
-    {
-        return $this->hasMany(PoiLocation::class);
-    }
-
-    /**
-     * Get the population cells for this grid cell.
-     */
-    public function populationCells(): HasMany
-    {
-        return $this->hasMany(PopulationCell::class);
     }
 }

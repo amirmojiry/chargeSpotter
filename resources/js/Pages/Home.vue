@@ -2,6 +2,9 @@
   <div class="home-page">
     <header class="hero-header">
       <div class="hero-content">
+        <div class="hero-logo">
+          <img :src="logoUrl" alt="ChargeSpotter Logo" class="hero-logo-img" />
+        </div>
         <h1>{{ __('chargespotter.title') }}</h1>
         <p class="hero-subtitle">{{ __('chargespotter.subtitle') }}</p>
         <p class="hero-description">
@@ -109,7 +112,8 @@
 </template>
 
 <script setup>
-// No JavaScript needed for this static landing page
+// Logo URL for Vite compatibility
+const logoUrl = new URL('/images/logo.png', window.location.origin).href
 </script>
 
 <style scoped>
@@ -145,6 +149,18 @@
   z-index: 1;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.hero-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-logo-img {
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
 
 .hero-header h1 {
@@ -400,6 +416,11 @@
     padding: 3rem 1rem;
   }
   
+  .hero-logo-img {
+    height: 80px;
+    max-width: 150px;
+  }
+  
   .hero-header h1 {
     font-size: 2.5rem;
   }
@@ -450,6 +471,21 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-logo-img {
+    height: 60px;
+    max-width: 120px;
+  }
+  
+  .hero-header h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
   }
 }
 </style>

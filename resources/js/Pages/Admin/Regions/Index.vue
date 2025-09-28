@@ -34,7 +34,8 @@
     <!-- Bulk Actions -->
     <div v-if="selectedItems.length > 0" class="bulk-actions">
       <span>{{ __('admin.selected_items', { count: selectedItems.length }) }}</span>
-      <button @click="bulkDelete" class="btn btn-danger btn-sm">
+      <!-- DISABLED: Bulk delete button temporarily disabled -->
+      <button @click="bulkDelete" class="btn btn-danger btn-sm" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
         {{ __('admin.delete_selected') }}
       </button>
     </div>
@@ -108,12 +109,14 @@
                 <button @click="viewRegion(region)" class="btn btn-sm btn-info">
                   View
                 </button>
-                <button @click="editRegion(region)" class="btn btn-sm btn-secondary">
+                <!-- DISABLED: Edit button temporarily disabled -->
+                <button @click="editRegion(region)" class="btn btn-sm btn-secondary" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
                   {{ __('admin.edit') }}
                 </button>
-                <button @click="deleteRegion(region)" class="btn btn-sm btn-danger">
-                  {{ __('admin.delete') }}
-                </button>
+                <!-- DISABLED: Delete button temporarily disabled -->
+                <button @click="deleteRegion(region)" class="btn btn-sm btn-danger" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
+                {{ __('admin.delete') }}
+              </button>
               </div>
             </td>
           </tr>

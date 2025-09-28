@@ -12,7 +12,8 @@
           <p v-if="region.description" class="region-description">{{ region.description }}</p>
         </div>
         <div class="header-right">
-          <button @click="editRegion" class="btn btn-primary">
+          <!-- DISABLED: Edit button temporarily disabled -->
+          <button @click="editRegion" class="btn btn-primary" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
             Edit Region
           </button>
         </div>

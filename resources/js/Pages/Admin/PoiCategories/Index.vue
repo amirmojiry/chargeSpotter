@@ -63,16 +63,21 @@
             </td>
             <td>{{ category.poi_locations_count }}</td>
             <td>
-              <button @click="editCategory(category)" class="btn btn-sm btn-secondary">
-                {{ __('admin.edit') }}
-              </button>
-              <button 
-                @click="deleteCategory(category)" 
-                class="btn btn-sm btn-danger"
-                :disabled="category.poi_locations_count > 0"
-              >
-                {{ __('admin.delete') }}
-              </button>
+              <div class="action-buttons">
+                 <!-- DISABLED: Edit button temporarily disabled -->
+                 <button @click="editCategory(category)" class="btn btn-sm btn-secondary" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
+                  {{ __('admin.edit') }}
+                </button>
+                 <!-- DISABLED: Delete button temporarily disabled -->
+                 <button 
+                   @click="deleteCategory(category)" 
+                   class="btn btn-sm btn-danger"
+                   disabled
+                   title="Functionality is implemented but disabled for demo to avoid data issues"
+                 >
+                  {{ __('admin.delete') }}
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -517,6 +522,12 @@ watch(filters, () => {
 .btn-sm {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {

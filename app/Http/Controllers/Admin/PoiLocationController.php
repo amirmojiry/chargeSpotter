@@ -68,8 +68,16 @@ class PoiLocationController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    /**
+     * DISABLED: Update functionality temporarily disabled
+     */
     public function update(Request $request, PoiLocation $poiLocation)
     {
+        // DISABLED: Update functionality temporarily disabled
+        return redirect()->route('admin.poi-locations.index')
+            ->with('error', 'Update functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'name' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
@@ -82,24 +90,42 @@ class PoiLocationController extends Controller
 
         return redirect()->route('admin.poi-locations.index')
             ->with('success', 'POI location updated successfully.');
+        */
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * DISABLED: Delete functionality temporarily disabled
+     */
     public function destroy(PoiLocation $poiLocation)
     {
+        // DISABLED: Delete functionality temporarily disabled
+        return redirect()->route('admin.poi-locations.index')
+            ->with('error', 'Delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $poiLocation->delete();
 
         return redirect()->route('admin.poi-locations.index')
             ->with('success', 'POI location deleted successfully.');
+        */
     }
 
     /**
      * Bulk delete multiple POI locations.
      */
+    /**
+     * DISABLED: Bulk delete functionality temporarily disabled
+     */
     public function bulkDestroy(Request $request)
     {
+        // DISABLED: Bulk delete functionality temporarily disabled
+        return redirect()->route('admin.poi-locations.index')
+            ->with('error', 'Bulk delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'ids' => 'required|array',
             'ids.*' => 'exists:poi_locations,id',
@@ -109,5 +135,6 @@ class PoiLocationController extends Controller
 
         return redirect()->route('admin.poi-locations.index')
             ->with('success', count($request->ids) . ' POI locations deleted successfully.');
+        */
     }
 }

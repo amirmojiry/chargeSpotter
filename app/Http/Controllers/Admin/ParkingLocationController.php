@@ -66,8 +66,16 @@ class ParkingLocationController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    /**
+     * DISABLED: Update functionality temporarily disabled
+     */
     public function update(Request $request, ParkingLocation $parkingLocation)
     {
+        // DISABLED: Update functionality temporarily disabled
+        return redirect()->route('admin.parking-locations.index')
+            ->with('error', 'Update functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'name' => 'required|string|max:255',
             'capacity' => 'nullable|integer|min:0',
@@ -79,24 +87,42 @@ class ParkingLocationController extends Controller
 
         return redirect()->route('admin.parking-locations.index')
             ->with('success', 'Parking location updated successfully.');
+        */
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * DISABLED: Delete functionality temporarily disabled
+     */
     public function destroy(ParkingLocation $parkingLocation)
     {
+        // DISABLED: Delete functionality temporarily disabled
+        return redirect()->route('admin.parking-locations.index')
+            ->with('error', 'Delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $parkingLocation->delete();
 
         return redirect()->route('admin.parking-locations.index')
             ->with('success', 'Parking location deleted successfully.');
+        */
     }
 
     /**
      * Bulk delete multiple parking locations.
      */
+    /**
+     * DISABLED: Bulk delete functionality temporarily disabled
+     */
     public function bulkDestroy(Request $request)
     {
+        // DISABLED: Bulk delete functionality temporarily disabled
+        return redirect()->route('admin.parking-locations.index')
+            ->with('error', 'Bulk delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'ids' => 'required|array',
             'ids.*' => 'exists:parking_locations,id',
@@ -106,5 +132,6 @@ class ParkingLocationController extends Controller
 
         return redirect()->route('admin.parking-locations.index')
             ->with('success', count($request->ids) . ' parking locations deleted successfully.');
+        */
     }
 }

@@ -58,8 +58,16 @@ class PoiCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    /**
+     * DISABLED: Update functionality temporarily disabled
+     */
     public function update(Request $request, PoiCategory $poiCategory)
     {
+        // DISABLED: Update functionality temporarily disabled
+        return redirect()->route('admin.poi-categories.index')
+            ->with('error', 'Update functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'name' => 'required|string|max:255|unique:poi_categories,name,' . $poiCategory->id,
             'description' => 'nullable|string|max:500',
@@ -70,13 +78,22 @@ class PoiCategoryController extends Controller
 
         return redirect()->route('admin.poi-categories.index')
             ->with('success', 'Category updated successfully.');
+        */
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * DISABLED: Delete functionality temporarily disabled
+     */
     public function destroy(PoiCategory $poiCategory)
     {
+        // DISABLED: Delete functionality temporarily disabled
+        return redirect()->route('admin.poi-categories.index')
+            ->with('error', 'Delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         if ($poiCategory->poiLocations()->count() > 0) {
             return redirect()->route('admin.poi-categories.index')
                 ->with('error', 'Cannot delete category with associated POI locations.');
@@ -86,5 +103,6 @@ class PoiCategoryController extends Controller
 
         return redirect()->route('admin.poi-categories.index')
             ->with('success', 'Category deleted successfully.');
+        */
     }
 }

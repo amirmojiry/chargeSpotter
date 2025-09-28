@@ -56,7 +56,10 @@
     <div v-if="selectedItems.length > 0" class="bulk-actions">
       <span>{{ __('admin.selected_items', { count: selectedItems.length }) }}</span>
       <button @click="bulkDelete" class="btn btn-danger btn-sm">
-        {{ __('admin.delete_selected') }}
+        <!-- DISABLED: Bulk delete button temporarily disabled -->
+        <button @click="bulkDelete" class="btn btn-danger btn-sm" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
+          {{ __('admin.delete_selected') }}
+        </button>
       </button>
     </div>
 
@@ -120,12 +123,16 @@
             <td>{{ parking.lat.toFixed(6) }}</td>
             <td>{{ parking.lng.toFixed(6) }}</td>
             <td>
-              <button @click="editParking(parking)" class="btn btn-sm btn-secondary">
-                {{ __('admin.edit') }}
-              </button>
-              <button @click="deleteParking(parking)" class="btn btn-sm btn-danger">
-                {{ __('admin.delete') }}
-              </button>
+              <div class="action-buttons">
+                 <!-- DISABLED: Edit button temporarily disabled -->
+                 <button @click="editParking(parking)" class="btn btn-sm btn-secondary" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
+                  {{ __('admin.edit') }}
+                </button>
+                 <!-- DISABLED: Delete button temporarily disabled -->
+                 <button @click="deleteParking(parking)" class="btn btn-sm btn-danger" disabled title="Functionality is implemented but disabled for demo to avoid data issues">
+                  {{ __('admin.delete') }}
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -624,12 +631,18 @@ watch(filters, () => {
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: #c82333;
+  background: #c82333
 }
 
 .btn-sm {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {

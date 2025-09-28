@@ -66,8 +66,16 @@ class PopulationCellController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    /**
+     * DISABLED: Update functionality temporarily disabled
+     */
     public function update(Request $request, PopulationCell $populationCell)
     {
+        // DISABLED: Update functionality temporarily disabled
+        return redirect()->route('admin.population-cells.index')
+            ->with('error', 'Update functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'lat' => 'required|numeric|between:-90,90',
             'lng' => 'required|numeric|between:-180,180',
@@ -78,24 +86,42 @@ class PopulationCellController extends Controller
 
         return redirect()->route('admin.population-cells.index')
             ->with('success', 'Population cell updated successfully.');
+        */
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * DISABLED: Delete functionality temporarily disabled
+     */
     public function destroy(PopulationCell $populationCell)
     {
+        // DISABLED: Delete functionality temporarily disabled
+        return redirect()->route('admin.population-cells.index')
+            ->with('error', 'Delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $populationCell->delete();
 
         return redirect()->route('admin.population-cells.index')
             ->with('success', 'Population cell deleted successfully.');
+        */
     }
 
     /**
      * Bulk delete multiple population cells.
      */
+    /**
+     * DISABLED: Bulk delete functionality temporarily disabled
+     */
     public function bulkDestroy(Request $request)
     {
+        // DISABLED: Bulk delete functionality temporarily disabled
+        return redirect()->route('admin.population-cells.index')
+            ->with('error', 'Bulk delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'ids' => 'required|array',
             'ids.*' => 'exists:population_cells,id',
@@ -105,5 +131,6 @@ class PopulationCellController extends Controller
 
         return redirect()->route('admin.population-cells.index')
             ->with('success', count($request->ids) . ' population cells deleted successfully.');
+        */
     }
 }

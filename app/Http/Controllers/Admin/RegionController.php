@@ -80,18 +80,35 @@ class RegionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    /**
+     * DISABLED: Edit functionality temporarily disabled
+     */
     public function edit(Region $region)
     {
+        // DISABLED: Edit functionality temporarily disabled
+        return redirect()->route('admin.regions.index')
+            ->with('error', 'Edit functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         return Inertia::render('Admin/Regions/Edit', [
             'region' => $region,
         ]);
+        */
     }
 
     /**
      * Update the specified resource in storage.
      */
+    /**
+     * DISABLED: Update functionality temporarily disabled
+     */
     public function update(Request $request, Region $region)
     {
+        // DISABLED: Update functionality temporarily disabled
+        return redirect()->route('admin.regions.index')
+            ->with('error', 'Update functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -104,24 +121,38 @@ class RegionController extends Controller
 
         return redirect()->route('admin.regions.index')
             ->with('success', 'Region updated successfully.');
+        */
     }
 
     /**
      * Remove the specified resource from storage.
+     * DISABLED: Delete functionality temporarily disabled
      */
     public function destroy(Region $region)
     {
+        // DISABLED: Delete functionality temporarily disabled
+        return redirect()->route('admin.regions.index')
+            ->with('error', 'Delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $region->delete();
 
         return redirect()->route('admin.regions.index')
             ->with('success', 'Region deleted successfully.');
+        */
     }
 
     /**
      * Bulk delete multiple regions.
+     * DISABLED: Bulk delete functionality temporarily disabled
      */
     public function bulkDestroy(Request $request)
     {
+        // DISABLED: Bulk delete functionality temporarily disabled
+        return redirect()->route('admin.regions.index')
+            ->with('error', 'Bulk delete functionality is currently disabled.');
+        
+        /* ORIGINAL CODE - UNCOMMENT TO RE-ENABLE:
         $request->validate([
             'ids' => 'required|array',
             'ids.*' => 'exists:regions,id',
@@ -131,5 +162,6 @@ class RegionController extends Controller
 
         return redirect()->route('admin.regions.index')
             ->with('success', count($request->ids) . ' regions deleted successfully.');
+        */
     }
 }

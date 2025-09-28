@@ -59,6 +59,8 @@ class PoiLocationController extends Controller
             'lng' => 'required|numeric|between:-180,180',
         ]);
 
+        $request['category'] = $request->category_id ? PoiCategory::find($request->category_id)->name : $request->category ?? '';
+
         PoiLocation::create($request->all());
 
         return redirect()->route('admin.poi-locations.index')

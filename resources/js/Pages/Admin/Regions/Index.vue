@@ -85,7 +85,11 @@
                 class="checkbox"
               />
             </td>
-            <td>{{ region.name }}</td>
+            <td>
+              <a @click="viewRegion(region)" class="region-name-link">
+                {{ region.name }}
+              </a>
+            </td>
             <td>
               <span v-if="region.description" class="description-text">
                 {{ region.description.length > 50 ? region.description.substring(0, 50) + '...' : region.description }}
@@ -99,16 +103,18 @@
             </td>
             <td>{{ region.center_lat.toFixed(6) }}</td>
             <td>{{ region.center_lng.toFixed(6) }}</td>
-            <td>
-              <button @click="viewRegion(region)" class="btn btn-sm btn-info">
-                View
-              </button>
-              <button @click="editRegion(region)" class="btn btn-sm btn-secondary">
-                {{ __('admin.edit') }}
-              </button>
-              <button @click="deleteRegion(region)" class="btn btn-sm btn-danger">
-                {{ __('admin.delete') }}
-              </button>
+            <td class="actions-cell">
+              <div class="action-buttons">
+                <button @click="viewRegion(region)" class="btn btn-sm btn-info">
+                  View
+                </button>
+                <button @click="editRegion(region)" class="btn btn-sm btn-secondary">
+                  {{ __('admin.edit') }}
+                </button>
+                <button @click="deleteRegion(region)" class="btn btn-sm btn-danger">
+                  {{ __('admin.delete') }}
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -648,6 +654,29 @@ watch(filters, () => {
   font-size: 0.875rem;
 }
 
+.region-name-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.region-name-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.actions-cell {
+  white-space: nowrap;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 768px) {
   .admin-page {
     padding: 1rem;
@@ -668,13 +697,56 @@ watch(filters, () => {
     justify-content: space-between;
   }
   
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
   .data-table {
     font-size: 0.875rem;
+    min-width: 600px;
   }
   
   .data-table th,
   .data-table td {
     padding: 0.75rem 0.5rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .action-buttons .btn {
+    width: 100%;
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .data-table {
+    min-width: 500px;
+  }
+  
+  .data-table th:nth-child(4),
+  .data-table th:nth-child(5),
+  .data-table th:nth-child(6),
+  .data-table td:nth-child(4),
+  .data-table td:nth-child(5),
+  .data-table td:nth-child(6) {
+    display: none;
+  }
+  
+  .action-buttons {
+    flex-direction: row;
+    gap: 0.25rem;
+  }
+  
+  .action-buttons .btn {
+    flex: 1;
+    min-width: auto;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
   }
 }
 </style>

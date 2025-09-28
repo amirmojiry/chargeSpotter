@@ -2,7 +2,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3' 
 
 // Global translation helper function
-const translate = (key) => {
+const translate = (key, parameters = {}) => {
   const keys = key.split('.')
   let value = window.$page?.props?.translations
   
@@ -14,7 +14,16 @@ const translate = (key) => {
     }
   }
   
-  return value || key
+  let translation = value || key
+  
+  // Replace parameters in the translation
+  if (typeof translation === 'string' && Object.keys(parameters).length > 0) {
+    Object.keys(parameters).forEach(param => {
+      translation = translation.replace(new RegExp(`:${param}`, 'g'), parameters[param])
+    })
+  }
+  
+  return translation
 }
 
 // Make it available globally
